@@ -1,15 +1,16 @@
 from fastapi import APIRouter
 from services.vehiculo_service import VehiculoService
+from database.connection import Database
+from models.schemas import VehiculoCreate, VehiculoUpdate
 
 router = APIRouter(prefix="/vehiculos", tags=["Vehículos"])
 servicio = VehiculoService()
+db = Database() # Instancia global para todos los endpoints
 
 @router.get("/")
 def obtener_todos_los_vehiculos():
     """Ejecuta sp_obtener_vehiculos para listar todos los vehículos registrados"""
     return servicio.obtener_vehiculos()
-
-from models.schemas import VehiculoCreate, VehiculoUpdate
 
 @router.post("/")
 def crear_vehiculo(vehiculo: VehiculoCreate):
@@ -32,7 +33,8 @@ def obtener_vehiculo(id_vehiculo: int):
     finally:
         conexion.close()
 
-@router.put("/{id_vehiculo}")
+# MODIFICADO: PUT -> POST
+@router.post("/actualizar/{id_vehiculo}")
 def actualizar_vehiculo(id_vehiculo: int, vehiculo: VehiculoUpdate):
     conexion = db.get_connection()
     try:
@@ -43,7 +45,8 @@ def actualizar_vehiculo(id_vehiculo: int, vehiculo: VehiculoUpdate):
     finally:
         conexion.close()
 
-@router.delete("/{id_vehiculo}")
+# MODIFICADO: DELETE -> POST
+@router.post("/eliminar/{id_vehiculo}")
 def eliminar_vehiculo(id_vehiculo: int):
     conexion = db.get_connection()
     try:

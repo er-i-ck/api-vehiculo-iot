@@ -29,7 +29,8 @@ def obtener_comandos(id_vehiculo: int):
     finally:
         conexion.close()
 
-@router.put("/{id_comando}")
+# MODIFICADO: PUT -> POST
+@router.post("/actualizar/{id_comando}")
 def actualizar_comando(id_comando: int, comando: ComandoUpdate):
     conexion = db.get_connection()
     try:
@@ -40,7 +41,8 @@ def actualizar_comando(id_comando: int, comando: ComandoUpdate):
     finally:
         conexion.close()
 
-@router.delete("/{id_comando}")
+# MODIFICADO: DELETE -> POST
+@router.post("/eliminar/{id_comando}")
 def eliminar_comando(id_comando: int):
     conexion = db.get_connection()
     try:
