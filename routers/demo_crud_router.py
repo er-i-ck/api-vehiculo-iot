@@ -103,7 +103,7 @@ class IniciarDemoRequest(BaseModel):
     id_vehiculo: int
     id_demo: int
 
-@router.post("/iniciar", tags=["Ejecución de DEMOs"])
+@router.post("/iniciar")
 async def iniciar_demo(request: IniciarDemoRequest, background_tasks: BackgroundTasks):
     """
     Inicia una secuencia DEMO asíncrona en segundo plano para no bloquear la API.
@@ -122,7 +122,7 @@ async def iniciar_demo(request: IniciarDemoRequest, background_tasks: Background
 class CancelarDemoRequest(BaseModel):
     id_vehiculo: int
 
-@router.post("/cancelar", tags=["Ejecución de DEMOs"])
+@router.post("/cancelar")
 def cancelar_demo(request: CancelarDemoRequest):
     """
     Detiene inmediatamente una secuencia DEMO en curso para un vehículo.
