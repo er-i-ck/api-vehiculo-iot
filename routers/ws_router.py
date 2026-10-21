@@ -20,8 +20,8 @@ async def websocket_endpoint(websocket: WebSocket, id_vehiculo: int):
     except WebSocketDisconnect:
         manager.disconnect(websocket, id_vehiculo)
 
-@router.post("/demos/iniciar")
-async def iniciar_demo(datos: InicioDemo, background_tasks: BackgroundTasks):
-    """Inicia una secuencia DEMO en segundo plano para no bloquear la API"""
-    background_tasks.add_task(demo_service.ejecutar_demo, datos.id_vehiculo, datos.id_demo)
-    return {"status": "success", "mensaje": "DEMO iniciada en segundo plano"}
+#@router.post("/demos/iniciar")
+#async def iniciar_demo(datos: InicioDemo, background_tasks: BackgroundTasks):
+#    """Inicia una secuencia DEMO en segundo plano para no bloquear la API"""
+#    background_tasks.add_task(demo_service.ejecutar_demo, datos.id_vehiculo, datos.id_demo)
+ #   return {"status": "success", "mensaje": "DEMO iniciada en segundo plano"}
