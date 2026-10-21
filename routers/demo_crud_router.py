@@ -54,6 +54,17 @@ def agregar_movimiento(mov: MovimientoDemoCreate):
     finally:
         conexion.close()
 
+# NUEVO: GET para consultar la lista de movimientos de una DEMO
+@router.get("/movimientos/{id_demo}")
+def obtener_movimientos_demo(id_demo: int):
+    conexion = db.get_connection()
+    try:
+        cursor = conexion.cursor(dictionary=True)
+        cursor.callproc('sp_obtener_movimientos_demo', (id_demo,))
+        for result in cursor.stored_results(): return result.fetchall()
+    finally:
+        conexion.close()
+
 class MovimientoDemoUpdate(BaseModel):
     id_comando: int
     orden: int
